@@ -42,8 +42,10 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with SingleTickerProviderStateMixin{
   double percentage; //value of the circular progress
+  double newPercentage = 0.0;
+  AnimationController percentageAnimationController;
 
   @override
   void initState() {
@@ -51,6 +53,16 @@ class _HomeState extends State<Home> {
     setState(() {
       percentage = 0.0; //initialize the value
     });
+
+    percentageAnimationController = AnimationController(vsync: this,
+      duration: new Duration(milliseconds: 1000)
+    )
+    ..addListener((){
+      setState(() {
+        percentage = lerpDouble(percentage, newPercentage, percentageAnimationController.value);
+      });
+    });
+
   }
 
   @override
@@ -80,11 +92,12 @@ class _HomeState extends State<Home> {
                   ),
                 onPressed: () {
                   setState(() {
-                    percentage += 5.0;
+                    percentage += 15.0;
                     if (percentage > 100) {
                       percentage = 0.0;
                     }
                   });
+                  percentageAnimationController.forward(from:0.0);
                 }),
           ),
         ),

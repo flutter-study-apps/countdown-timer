@@ -99,7 +99,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
           foregroundPainter: new MyPainter(
               lineColor: Colors.amberAccent,
               completeColor: Colors.blueAccent,
-              completePercent: (_myTimerDuration/100)*_myCurrentTime,
+              completePercent: (_myTimerDuration/100)*_myCurrentTime*4,
               width: 5.0),
           child: Padding(
             padding: const EdgeInsets.all(30),
